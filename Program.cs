@@ -25,6 +25,7 @@ namespace App.Bank
             System.Console.WriteLine("3 - Transferir");
             System.Console.WriteLine("4 - Sacar");
             System.Console.WriteLine("5 - Depositar");
+            System.Console.WriteLine("6 - Excluir conta");
             System.Console.WriteLine("C - Limpar tela");
             System.Console.WriteLine("X - Sair");
             System.Console.WriteLine();
@@ -56,6 +57,9 @@ namespace App.Bank
                     case "5":
                         Depositar();
                         break;
+                    case "6":
+                        ExcluirConta();
+                        break;
                     case "C":
                         Console.Clear();
                         break;
@@ -65,6 +69,45 @@ namespace App.Bank
                 escolhaUsuario = EscolhaUsuario();
             }
             System.Console.WriteLine("Obrigado por utilizar os nossos serviços!");
+        }
+
+        private static void ExcluirConta()
+        {
+            System.Console.WriteLine("----------Excluir conta----------");
+
+            if (listaContas.Any())
+            {
+                System.Console.WriteLine("Contas registradas atualmente");
+                for (int i = 0; i <= listaContas.Count() - 1; i++)
+                {
+                    System.Console.WriteLine($"{i} - {listaContas[i].retornaNome()}");
+                }
+
+                System.Console.WriteLine();
+                System.Console.WriteLine("Informe o número da conta a ser excluída");
+                int numeroConta = Convert.ToInt32(Console.ReadLine());
+
+                System.Console.WriteLine("Tem certeza em prosseguir com a operação?[S / N]");
+                string escolha = Console.ReadLine().ToUpper();
+
+                if (escolha.Equals("S"))
+                {
+                    listaContas.RemoveAt(numeroConta);
+                    System.Console.WriteLine("Conta excluída com sucesso!");
+                    System.Console.WriteLine("Pressione qualquer tecla para sair");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    System.Console.WriteLine("Operação cancelada com sucesso");
+                    System.Console.WriteLine("Pressione qualquer tecla para sair");
+                    Console.ReadLine();
+                }
+            }
+            else
+            {
+                System.Console.WriteLine("Não há contas cadastradas!");
+            }
         }
 
         private static void Depositar()
